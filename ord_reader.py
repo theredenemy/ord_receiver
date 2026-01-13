@@ -1,0 +1,71 @@
+import os
+import pydirectinput
+import time
+import psutil
+
+maindir = os.getcwd()
+class OrdInput:
+    def __init__(self):
+        self.registry = {}
+        self.eom_func = None
+        self.start_func = None
+    def start(self, func):
+        self.start_func = func
+        return func
+    def input(self, input):
+        def wrapper(func):
+            self.registry[input] = func
+            return func
+        return wrapper
+    def eom(self, func):
+        self.eom_func = func
+        return func
+
+    def start_ord(self):
+        if self.start_func:
+            self.start_func()
+    def make_input(self, input):
+        if input in self.registry:
+            self.registry[input]()
+        else:
+            print(f"INVAILD INPUT : {input}")
+    def run_eom(self):
+        if self.eom_func:
+            self.eom_func()
+
+
+def get_pid(process_name):
+    pid = None
+    
+    for proc in psutil.process_iter(['pid', 'name']):
+        if proc.info['name'].lower() == process_name.lower():
+            pid = proc.info['pid']
+            return pid
+
+def getmaxlines(filename):
+    linenum = 0
+    with open(filename, 'r', encoding='utf-8', errors='ignore') as file:
+        for line in file:
+            linenum += 1
+        file.close()
+        return linenum
+
+
+def read_inputs(input_file):
+    import __main__
+    maxlines = getmaxlines(input_file)
+    ord = getattr(__main__, 'ord', None)
+    file = open(input_file, 'r', encoding="utf-8", errors='ignore')
+    
+    content = file.readlines()
+    
+    ord.start_ord()
+
+    for input in content:
+        ord.make_input(input.strip())
+        time.sleep(1)
+    
+    ord.run_eom()
+
+    return True
+    
