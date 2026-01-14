@@ -147,6 +147,10 @@ def cfunc():
     win32_functions.set_focus(process_name)
     pydirectinput.press('c')
 
+@ord.input("AA")
+def wait5():
+    time.sleep(5)
+
 @ord.eom
 def eom():
     print("EOM")
