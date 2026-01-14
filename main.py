@@ -96,7 +96,7 @@ def eom():
         pass
     if not os.path.isdir("views"):
         os.mkdir("views")
-    number = 0
+    number = 1
     while True:
         if os.path.isdir(f"views\\view_{number}") == False:
             dir = f"views\\view_{number}"

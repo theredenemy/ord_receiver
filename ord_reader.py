@@ -10,6 +10,7 @@ class OrdInput:
         self.registry = {}
         self.eom_func = None
         self.start_func = None
+        self.invalid_func = None
     def start(self, func):
         self.start_func = func
         return func
@@ -21,6 +22,9 @@ class OrdInput:
     def eom(self, func):
         self.eom_func = func
         return func
+    def invaild(self, func):
+        self.invalid_func = func
+        return func
 
     def start_ord(self):
         if self.start_func:
@@ -30,6 +34,8 @@ class OrdInput:
             self.registry[input]()
         else:
             print(f"INVAILD INPUT : {input}")
+            if self.invalid_func:
+                self.invalid_func()
     def run_eom(self):
         if self.eom_func:
             self.eom_func()

@@ -3,6 +3,8 @@ import win32con
 import win32security
 import win32gui
 import win32process
+import psutil
+import time
 def reboot():
     
     # What The Fuck
@@ -20,6 +22,15 @@ def reboot():
     win32api.CloseHandle(token)
     return True
 
+def get_pid(process_name):
+    
+    pid = None
+    
+    for proc in psutil.process_iter(['pid', 'name']):
+        if proc.info['name'].lower() == process_name.lower():
+            pid = proc.info['pid']
+            return pid
+
 def GetHwndsFromPID(pid):
     hwnds = []
     def callback(hwnd, hwnds):
@@ -31,6 +42,24 @@ def GetHwndsFromPID(pid):
     
     win32gui.EnumWindows(callback, hwnds)
     return hwnds
+
+def set_focus(process_name):
+    pid = get_pid(process_name)
+    while True:
+        try:
+            hwnd = GetHwndsFromPID(pid)[0]
+
+            if hwnd:
+                win32gui.ShowWindow(hwnd, 5)
+
+                win32gui.SetForegroundWindow(hwnd)
+                return True
+            else:
+                return False
+        except RuntimeError:
+            print("Window Not Responding")
+            time.sleep(3)
+
     
     
     
