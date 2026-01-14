@@ -32,7 +32,7 @@ while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
         break
-    except ConnectionResetError:
+    except ConnectionRefusedError:
         pass
 scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
