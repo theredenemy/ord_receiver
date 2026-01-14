@@ -27,7 +27,12 @@ ord = OrdInput()
 move_cam = False
 hold_time = 0.5
 process_name = "DELTARUNE.exe"
-cl = obs.ReqClient(host="localhost", port=4455)
+while True:
+    try:
+        cl = obs.ReqClient(host="localhost", port=4455)
+        break
+    except ConnectionResetError:
+        pass
 scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
