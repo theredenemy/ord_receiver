@@ -30,6 +30,8 @@ def get_pid(process_name):
         if proc.info['name'].lower() == process_name.lower():
             pid = proc.info['pid']
             return pid
+    if pid is None:
+        return False
 
 def GetHwndsFromPID(pid):
     hwnds = []

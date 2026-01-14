@@ -6,18 +6,30 @@ import vid2vtf
 import processchecklib
 import obsws_python as obs
 import time
+import subprocess
 import shutil
 import configHelper
 from makeConfig import makeConfig
 import fileinuse_functions
+import win32_functions
 import os
 import pathlib
 import paramiko
-
+if not processchecklib.process_check("obs64.exe"):
+        processloop = 0
+        subprocess.Popen("C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe", cwd="C:\\Program Files\\obs-studio\\bin\\64bit")
+        while (processloop < 1):
+            if win32_functions.get_pid("obs64.exe"):
+                processloop = 1
+                break
+time.sleep(3)
 ord = OrdInput()
 move_cam = False
+hold_time = 0.5
 process_name = "notepad.exe"
 cl = obs.ReqClient(host="localhost", port=4455)
+scene_name = "ordinance"
+scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
 if not os.path.isfile(config_file):
@@ -31,13 +43,17 @@ ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value
 @ord.start
 def start_ord():
     status = cl.get_record_status()
+    scene_list = cl.get_scene_list()
+    scenes = [scene['sceneName'] for scene in scene_list.scenes]
     rec_active = status.output_active
     if rec_active:
         resp = cl.stop_record()
         recording = resp.output_path
         while(fileinuse_functions.is_file_in_use(recording) == True):
             pass
-    cl.set_current_program_scene("ord_ren")
+    if not scene_name in scenes:
+        cl.create_scene(scene_name)
+    cl.set_current_program_scene(scene_name)
     cl.start_record()
     if not processchecklib.process_check(process_name):
         #ord_reader.endinput = True
@@ -45,6 +61,23 @@ def start_ord():
         return
     pid = ord_reader.get_pid(process_name)
     print("start")
+@ord.invaild
+def ord_invalid():
+    resp = cl.get_scene_item_list(scene_name)
+    scene_items = [item['sourceName'] for item in resp.scene_items]
+    if not scene_item_name in scene_items:
+        settings = {
+            "file": f"{maindir}\\imgs\\noinput.png",
+            "unload": True
+        }
+        cl.create_input(sceneName=scene_name, inputName=scene_item_name, inputKind="image_source", inputSettings=settings, sceneItemEnabled=False)
+    resp = cl.get_scene_item_id(scene_name, scene_item_name)
+    item_id = resp.scene_item_id
+
+    cl.set_scene_item_enabled(scene_name, item_id, True)
+    time.sleep(3)
+    cl.set_scene_item_enabled(scene_name, item_id, False)
+
 
 @ord.input("RENDER")
 def ren():
@@ -53,38 +86,48 @@ def ren():
 @ord.input("XU")
 def xufunc():
     print("XU")
+    ord_pawn.move_pawn('right', hold_time)
+    
 
 @ord.input("ZU")
 def zufunc():
    print("ZU")
+   ord_pawn.move_pawn('up', hold_time)
 
 @ord.input("ZD")
 def zdfunc():
    print("ZD")
+   ord_pawn.move_pawn('down', hold_time)
 
 @ord.input("XD")
 def xdfunc():
     print("XD")
+    ord_pawn.move_pawn('left', hold_time)
 
 @ord.input("YD")
 def ydfunc():
     print("YD")
+    pydirectinput.press('down')
 
 @ord.input("YU")
 def yufunc():
     print("YU")
+    pydirectinput.press('up')
 
 @ord.input("A")
 def afunc():
     print("A")
+    pydirectinput.press('z')
 
 @ord.input("B")
 def bfunc():
     print("B")
+    pydirectinput.press('x')
 
 @ord.input("C")
 def cfunc():
     print("C")
+    pydirectinput.press('c')
 
 @ord.eom
 def eom():
@@ -148,4 +191,4 @@ def eom():
 
 if __name__ == '__main__':
     if os.path.isfile(inputs_file):
-        ord_reader.read_inputs(inputs_file)
+        ord_reader.read_inputs(inputs_file, wait=0.1)

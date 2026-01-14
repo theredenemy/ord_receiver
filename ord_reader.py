@@ -58,7 +58,7 @@ def getmaxlines(filename):
         return linenum
 
 
-def read_inputs(input_file):
+def read_inputs(input_file, wait=0.5):
     import __main__
     global endinput
     maxlines = getmaxlines(input_file)
@@ -74,7 +74,7 @@ def read_inputs(input_file):
         if endinput:
             break
         ord.make_input(input.strip())
-        time.sleep(0.5)
+        time.sleep(wait)
     file.close()
     ord.run_eom()
 
