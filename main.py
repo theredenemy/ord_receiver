@@ -60,6 +60,7 @@ def start_ord():
         subprocess.Popen("C:\\Program Files (x86)\\SURVEY_PROGRAM\\DELTARUNE.exe", cwd="C:\\Program Files (x86)\\SURVEY_PROGRAM")
         time.sleep(15)
         return
+    win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
     print("start")
 @ord.invaild
@@ -88,47 +89,56 @@ def ren():
 @ord.input("XU")
 def xufunc():
     print("XU")
+    win32_functions.set_focus(process_name)
     ord_pawn.move_pawn('right', hold_time)
     
 
 @ord.input("ZU")
 def zufunc():
    print("ZU")
+   win32_functions.set_focus(process_name)
    ord_pawn.move_pawn('up', hold_time)
 
 @ord.input("ZD")
 def zdfunc():
    print("ZD")
+   win32_functions.set_focus(process_name)
    ord_pawn.move_pawn('down', hold_time)
 
 @ord.input("XD")
 def xdfunc():
     print("XD")
+    win32_functions.set_focus(process_name)
     ord_pawn.move_pawn('left', hold_time)
 
 @ord.input("YD")
 def ydfunc():
     print("YD")
+    win32_functions.set_focus(process_name)
     pydirectinput.press('down')
 
 @ord.input("YU")
 def yufunc():
     print("YU")
+    win32_functions.set_focus(process_name)
     pydirectinput.press('up')
 
 @ord.input("A")
 def afunc():
     print("A")
+    win32_functions.set_focus(process_name)
     pydirectinput.press('z')
 
 @ord.input("B")
 def bfunc():
     print("B")
+    win32_functions.set_focus(process_name)
     pydirectinput.press('x')
 
 @ord.input("C")
 def cfunc():
     print("C")
+    win32_functions.set_focus(process_name)
     pydirectinput.press('c')
 
 @ord.eom

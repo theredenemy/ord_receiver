@@ -44,12 +44,26 @@ def GetHwndsFromPID(pid):
     
     win32gui.EnumWindows(callback, hwnds)
     return hwnds
-
 def set_focus(process_name):
+    from pywinauto import Application
+    import time
+    pid = get_pid(process_name)
+    endloop = 0
+    while (endloop <= 0):
+        try:
+            app = Application().connect(process=pid)
+            app.top_window().set_focus()
+            endloop = 1
+        except RuntimeError:
+            print("Window Not Responding")
+            time.sleep(3)
+
+def set_focus_win32(process_name):
     pid = get_pid(process_name)
     while True:
         try:
-            hwnd = GetHwndsFromPID(pid)[0]
+            hwnds = GetHwndsFromPID(pid)
+            hwnd = hwnds[1]
 
             if hwnd:
                 win32gui.ShowWindow(hwnd, 5)
