@@ -4,6 +4,7 @@ import time
 import psutil
 
 maindir = os.getcwd()
+endinput = False
 class OrdInput:
     def __init__(self):
         self.registry = {}
@@ -53,7 +54,9 @@ def getmaxlines(filename):
 
 def read_inputs(input_file):
     import __main__
+    global endinput
     maxlines = getmaxlines(input_file)
+    endinput = False
     ord = getattr(__main__, 'ord', None)
     file = open(input_file, 'r', encoding="utf-8", errors='ignore')
     
@@ -62,9 +65,11 @@ def read_inputs(input_file):
     ord.start_ord()
 
     for input in content:
+        if endinput:
+            break
         ord.make_input(input.strip())
-        time.sleep(1)
-    
+        time.sleep(0.5)
+    file.close()
     ord.run_eom()
 
     return True

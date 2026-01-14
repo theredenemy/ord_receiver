@@ -1,3 +1,8 @@
 /.venv
+/views
 /inputs.txt
 /__pycache__
+receiver.ini
+make_venv.bat
+load_venv.bat
+checksums.ini
