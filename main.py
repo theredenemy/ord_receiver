@@ -26,7 +26,7 @@ time.sleep(3)
 ord = OrdInput()
 move_cam = False
 hold_time = 0.5
-process_name = "notepad.exe"
+process_name = "DELTARUNE.exe"
 cl = obs.ReqClient(host="localhost", port=4455)
 scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
@@ -56,8 +56,9 @@ def start_ord():
     cl.set_current_program_scene(scene_name)
     cl.start_record()
     if not processchecklib.process_check(process_name):
-        #ord_reader.endinput = True
-        time.sleep(5)
+        ord_reader.endinput = True
+        subprocess.Popen("C:\\Program Files (x86)\\SURVEY_PROGRAM\\DELTARUNE.exe", cwd="C:\\Program Files (x86)\\SURVEY_PROGRAM")
+        time.sleep(15)
         return
     pid = ord_reader.get_pid(process_name)
     print("start")
@@ -82,6 +83,7 @@ def ord_invalid():
 @ord.input("RENDER")
 def ren():
     time.sleep(3)
+    ord_reader.endinput = True
 
 @ord.input("XU")
 def xufunc():
