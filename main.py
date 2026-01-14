@@ -150,7 +150,7 @@ def cfunc():
 @ord.eom
 def eom():
     print("EOM")
-    time.sleep(5)
+    time.sleep(6)
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)
