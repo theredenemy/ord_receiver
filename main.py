@@ -58,7 +58,7 @@ def start_ord():
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Program Files (x86)\\SURVEY_PROGRAM\\DELTARUNE.exe", cwd="C:\\Program Files (x86)\\SURVEY_PROGRAM")
-        time.sleep(57)
+        time.sleep(60)
         return
     win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
