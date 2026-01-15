@@ -222,6 +222,8 @@ def eom():
             print(filepath)
             sftp.put(localpath=filepath, remotepath=f"/tf/sound/{basefile}" )
     
+    sftp.put(localpath=f"{view_dir}\\view{fileext}", remotepath=f"/tf/public/view{fileext}")
+    
     sftp.close()
     ssh_client.close()
     cl.disconnect()
