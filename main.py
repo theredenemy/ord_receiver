@@ -157,6 +157,18 @@ def acfunc():
     win32_functions.set_focus(process_name)
     pydirectinput.press('z')
 
+@ord.input("BC")
+def bcfunc():
+    print("BC")
+    win32_functions.set_focus(process_name)
+    pydirectinput.press('x')
+
+@ord.input("CC")
+def ccfunc():
+    print("CC")
+    win32_functions.set_focus(process_name)
+    pydirectinput.press('c')
+
 @ord.eom
 def eom():
     print("EOM")
