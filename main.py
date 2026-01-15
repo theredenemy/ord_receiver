@@ -151,6 +151,12 @@ def cfunc():
 def wait5():
     time.sleep(5)
 
+@ord.input("AC")
+def acfunc():
+    print("AC")
+    win32_functions.set_focus(process_name)
+    pydirectinput.press('z')
+
 @ord.eom
 def eom():
     print("EOM")
