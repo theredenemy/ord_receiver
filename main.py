@@ -28,6 +28,7 @@ time.sleep(3)
 ord = OrdInput()
 move_cam = False
 hold_time = 0.5
+sprint = False
 process_name = "DELTARUNE.exe"
 while True:
     try:
@@ -41,13 +42,14 @@ scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
+
 if not os.path.isfile(config_file):
     makeConfig()
 inputs_file = "inputs.txt"
 host = configHelper.read_config(config_file, "sftp", "host", default_value="127.0.0.1")
 port = configHelper.read_config(config_file, "sftp", "port", default_value=21, is_int=True)
 user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky")
-ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs"),
+ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
 
 @ord.start
 def start_ord():
@@ -171,6 +173,17 @@ def ccfunc():
     print("CC")
     win32_functions.set_focus(process_name)
     pydirectinput.press('c')
+
+@ord.input("AB")
+def abfunc():
+    global sprint
+    if not sprint:
+        pydirectinput.keyDown("x")
+        sprint = True
+    else:
+        pydirectinput.keyUp("x")
+        sprint = False
+
 
 @ord.eom
 def eom():
