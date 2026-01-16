@@ -27,7 +27,7 @@ if not processchecklib.process_check("obs64.exe"):
 time.sleep(3)
 ord = OrdInput()
 move_cam = False
-hold_time = 0.5
+hold_time = 0.1
 sprint = False
 process_name = "DELTARUNE.exe"
 while True:
@@ -120,7 +120,7 @@ def zdfunc():
 def xdfunc():
     print("XD")
     win32_functions.set_focus(process_name)
-    ord_pawn.move_pawn('left', hold_time)
+    ord_pawn.move_pawn('left')
 
 @ord.input("YD")
 def ydfunc():
