@@ -177,6 +177,7 @@ def ccfunc():
 @ord.input("AB")
 def abfunc():
     global sprint
+    # fix
     win32_functions.set_focus(process_name)
     if not sprint:
         pydirectinput.keyDown("x")
