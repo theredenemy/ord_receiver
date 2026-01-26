@@ -11,6 +11,7 @@ class OrdInput:
         self.eom_func = None
         self.start_func = None
         self.invalid_func = None
+        self.before_input_func = None
     def start(self, func):
         self.start_func = func
         return func
@@ -25,11 +26,18 @@ class OrdInput:
     def invaild(self, func):
         self.invalid_func = func
         return func
-
+    def before_input(self, func):
+        self.before_input_func = func
+        return func
     def start_ord(self):
         if self.start_func:
             self.start_func()
+    
     def make_input(self, input):
+        if self.before_input_func:
+            state = self.before_input_func()
+            if state is False:
+                return
         if input in self.registry:
             self.registry[input]()
         else:

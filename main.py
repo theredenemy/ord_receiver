@@ -96,6 +96,13 @@ def ord_invalid():
     invaild_input(True)
     time.sleep(3)
     invaild_input(False)
+@ord.before_input
+def before():
+    if not processchecklib.process_check(process_name):
+        ord_reader.endinput = True
+        return False
+    else:
+        return True
 
 
 @ord.input("RENDER")
