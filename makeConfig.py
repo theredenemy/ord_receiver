@@ -15,6 +15,11 @@ def makeConfig():
   config_file.set("sftp", "user", "fsky")
   config_file.set("sftp", "key", "C:\\Users\\FSKY\\.ssh\\kulcs")
 
+  config_file.add_section("ORD_SERVER")
+
+  config_file.set("ORD_SERVER", "ip", "10.0.0.100")
+  config_file.set("ORD_SERVER", "port", "5000")
+
 
   with open(r"receiver.ini", 'w') as configfileObj:
      config_file.write(configfileObj)

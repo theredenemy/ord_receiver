@@ -16,9 +16,10 @@ import win32_functions
 import os
 import pathlib
 import paramiko
+import requests
 if not processchecklib.process_check("obs64.exe"):
         processloop = 0
-        os.system('del "%appdata%\\obs-studio\\.sentinel\\" /f /q')
+        os.system('del "%Appdata%\\obs-studio\\.sentinel\\" /f /q')
         subprocess.Popen("C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe", cwd="C:\\Program Files\\obs-studio\\bin\\64bit")
         while (processloop < 1):
             if win32_functions.get_pid("obs64.exe"):
@@ -50,7 +51,23 @@ host = configHelper.read_config(config_file, "sftp", "host", default_value="127.
 port = configHelper.read_config(config_file, "sftp", "port", default_value=21, is_int=True)
 user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky")
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
+ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
+ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 
+def invaild_input(state=True):
+    resp = cl.get_scene_item_list(scene_name)
+    scene_items = [item['sourceName'] for item in resp.scene_items]
+    if not scene_item_name in scene_items:
+        settings = {
+            "file": f"{maindir}\\imgs\\noinput.png",
+            "unload": True
+        }
+        cl.create_input(sceneName=scene_name, inputName=scene_item_name, inputKind="image_source", inputSettings=settings, sceneItemEnabled=False)
+    resp = cl.get_scene_item_id(scene_name, scene_item_name)
+    item_id = resp.scene_item_id
+
+    cl.set_scene_item_enabled(scene_name, item_id, state)
+# START
 @ord.start
 def start_ord():
     status = cl.get_record_status()
@@ -76,20 +93,9 @@ def start_ord():
     print("start")
 @ord.invaild
 def ord_invalid():
-    resp = cl.get_scene_item_list(scene_name)
-    scene_items = [item['sourceName'] for item in resp.scene_items]
-    if not scene_item_name in scene_items:
-        settings = {
-            "file": f"{maindir}\\imgs\\noinput.png",
-            "unload": True
-        }
-        cl.create_input(sceneName=scene_name, inputName=scene_item_name, inputKind="image_source", inputSettings=settings, sceneItemEnabled=False)
-    resp = cl.get_scene_item_id(scene_name, scene_item_name)
-    item_id = resp.scene_item_id
-
-    cl.set_scene_item_enabled(scene_name, item_id, True)
+    invaild_input(True)
     time.sleep(3)
-    cl.set_scene_item_enabled(scene_name, item_id, False)
+    invaild_input(False)
 
 
 @ord.input("RENDER")
@@ -191,6 +197,14 @@ def abfunc():
 def eom():
     print("EOM")
     time.sleep(6)
+    if not processchecklib.process_check(process_name):
+        invaild_input(True)
+        time.sleep(5)
+        invaild_input(False)
+        json_data = {'state': 'dead'}
+        url = f"http://{ord_server_ip}:{ord_server_port}/ord/pawn/state"
+        requests.post(url, json=json_data)
+        
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)

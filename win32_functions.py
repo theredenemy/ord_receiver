@@ -36,10 +36,15 @@ def get_pid(process_name):
 def GetHwndsFromPID(pid):
     hwnds = []
     def callback(hwnd, hwnds):
-        if win32gui.IsWindowVisible(hwnd) and win32gui.IsWindowEnabled(hwnd):
+        if win32gui.IsWindowVisible(hwnd):
+            #print(hwnd)
             found = win32process.GetWindowThreadProcessId(hwnd)
-            if found == pid:
-                hwnds.append(hwnd)
+            for id in found:
+                #print("pid", id, pid)
+                if id == pid:
+                    print(id, hwnd)
+                    hwnds.append(hwnd)
+                    break
             return True
     
     win32gui.EnumWindows(callback, hwnds)
@@ -60,19 +65,23 @@ def set_focus(process_name):
 
 def set_focus_win32(process_name):
     pid = get_pid(process_name)
+    print(pid)
+    if pid is False:
+        return False
     while True:
         try:
             hwnds = GetHwndsFromPID(pid)
-            hwnd = hwnds[1]
+            print(hwnds)
+            hwnd = hwnds[0]
 
             if hwnd:
-                win32gui.ShowWindow(hwnd, 5)
+                win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
 
                 win32gui.SetForegroundWindow(hwnd)
                 return True
             else:
                 return False
-        except RuntimeError:
+        except Exception:
             print("Window Not Responding")
             time.sleep(3)
 
