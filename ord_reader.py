@@ -82,7 +82,8 @@ def read_inputs(input_file, wait=0.5):
         if endinput:
             break
         ord.make_input(input.strip())
-        time.sleep(wait)
+        if not wait == 0:
+            time.sleep(wait)
     file.close()
     ord.run_eom()
 
