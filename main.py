@@ -273,4 +273,4 @@ def eom():
 
 if __name__ == '__main__':
     if os.path.isfile(inputs_file):
-        ord_reader.read_inputs(inputs_file, wait=0.1)
+        ord_reader.read_inputs(inputs_file, wait=0)
