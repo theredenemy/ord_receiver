@@ -30,7 +30,7 @@ ord = OrdInput()
 move_cam = False
 hold_time = 0.1
 sprint = False
-process_name = "DELTARUNE.exe"
+process_name = "notepad.exe"
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)

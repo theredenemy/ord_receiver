@@ -68,8 +68,10 @@ def getmaxlines(filename):
 
 def read_inputs(input_file, wait=0.5):
     import __main__
+    import threading
     global endinput
     maxlines = getmaxlines(input_file)
+    lock = open("ord.lock", 'w')
     endinput = False
     ord = getattr(__main__, 'ord', None)
     file = open(input_file, 'r', encoding="utf-8", errors='ignore')
@@ -86,6 +88,8 @@ def read_inputs(input_file, wait=0.5):
             time.sleep(wait)
     file.close()
     ord.run_eom()
+    lock.close()
+    os.remove("ord.lock")
 
     return True
     
