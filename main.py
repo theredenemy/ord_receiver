@@ -199,6 +199,9 @@ def abfunc():
         pydirectinput.keyUp("x")
         sprint = False
 
+@ord.input("CA")
+def cafunc():
+    time.sleep(1)
 
 @ord.eom
 def eom():
