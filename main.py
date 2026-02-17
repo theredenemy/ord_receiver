@@ -133,7 +133,7 @@ def zdfunc():
 def xdfunc():
     print("XD")
     win32_functions.set_focus(process_name)
-    ord_pawn.move_pawn('left')
+    ord_pawn.move_pawn('left', hold_time)
 
 @ord.input("YD")
 def ydfunc():
