@@ -71,7 +71,7 @@ def set_focus_win32(process_name):
     while True:
         try:
             hwnds = GetHwndsFromPID(pid)
-            print(hwnds)
+            # print(hwnds)
             hwnd = hwnds[0]
 
             if hwnd:
