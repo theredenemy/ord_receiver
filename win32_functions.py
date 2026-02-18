@@ -42,7 +42,7 @@ def GetHwndsFromPID(pid):
             for id in found:
                 #print("pid", id, pid)
                 if id == pid:
-                    print(id, hwnd)
+                    # print(id, hwnd)
                     hwnds.append(hwnd)
                     break
             return True
@@ -65,7 +65,7 @@ def set_focus(process_name):
 
 def set_focus_win32(process_name):
     pid = get_pid(process_name)
-    print(pid)
+    # print(pid)
     if pid is False:
         return False
     while True:
