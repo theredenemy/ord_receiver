@@ -28,6 +28,7 @@ if not processchecklib.process_check("obs64.exe"):
 time.sleep(3)
 ord = OrdInput()
 move_cam = False
+upload = False
 hold_time = 0.1
 sprint = False
 process_name = "DELTARUNE.exe"
@@ -233,35 +234,36 @@ def eom():
     vid2vtf.video_to_vtf(video=f"{view_dir}\\view{fileext}", fps=15, width=256, height=128, output_dir=view_dir)
     materials_dir = os.path.join(view_dir, "materials")
     sound_dir = os.path.join(view_dir, "sound")
-    ssh_client = paramiko.SSHClient()
+    if upload:
+        ssh_client = paramiko.SSHClient()
 
-    ssh_client.load_system_host_keys()
+        ssh_client.load_system_host_keys()
 
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    print("Connecting")
-    ssh_client.connect(hostname=host, port=port, username=user, allow_agent=True, key_filename=ssh_keyfile)
-    print("Connected")
-    sftp = ssh_client.open_sftp()
-    print("Uploading Files")
-    for file in os.listdir(materials_dir):
-        filepath = os.path.join(materials_dir, file)
-        basefile = os.path.basename(filepath)
-        if os.path.isfile(filepath):
-            print(filepath)
-            sftp.put(localpath=filepath, remotepath=f"/tf/materials/{basefile}" )
-    
-    for file in os.listdir(sound_dir):
-        filepath = os.path.join(sound_dir, file)
-        basefile = os.path.basename(filepath)
-        if os.path.isfile(filepath):
-            print(filepath)
-            sftp.put(localpath=filepath, remotepath=f"/tf/sound/{basefile}" )
-    
-    sftp.put(localpath=f"{view_dir}\\view{fileext}", remotepath=f"/tf/public/view{fileext}")
-    
-    sftp.close()
-    ssh_client.close()
-    cl.disconnect()
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        print("Connecting")
+        ssh_client.connect(hostname=host, port=port, username=user, allow_agent=True, key_filename=ssh_keyfile)
+        print("Connected")
+        sftp = ssh_client.open_sftp()
+        print("Uploading Files")
+        for file in os.listdir(materials_dir):
+            filepath = os.path.join(materials_dir, file)
+            basefile = os.path.basename(filepath)
+            if os.path.isfile(filepath):
+                print(filepath)
+                sftp.put(localpath=filepath, remotepath=f"/tf/materials/{basefile}" )
+        
+        for file in os.listdir(sound_dir):
+            filepath = os.path.join(sound_dir, file)
+            basefile = os.path.basename(filepath)
+            if os.path.isfile(filepath):
+                print(filepath)
+                sftp.put(localpath=filepath, remotepath=f"/tf/sound/{basefile}" )
+        
+        sftp.put(localpath=f"{view_dir}\\view{fileext}", remotepath=f"/tf/public/view{fileext}")
+        
+        sftp.close()
+        ssh_client.close()
+        cl.disconnect()
 
     
     
