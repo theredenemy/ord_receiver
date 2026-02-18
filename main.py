@@ -98,10 +98,11 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
-    if not processchecklib.process_check(process_name):
+    if not win32_functions.get_pid(process_name):
         ord_reader.endinput = True
         return False
     else:
+        win32_functions.set_focus_win32(process_name)
         return True
 
 
@@ -113,56 +114,47 @@ def ren():
 @ord.input("XU")
 def xufunc():
     print("XU")
-    win32_functions.set_focus(process_name)
     ord_pawn.move_pawn('right', hold_time)
     
 
 @ord.input("ZU")
 def zufunc():
    print("ZU")
-   win32_functions.set_focus(process_name)
    ord_pawn.move_pawn('up', hold_time)
 
 @ord.input("ZD")
 def zdfunc():
    print("ZD")
-   win32_functions.set_focus(process_name)
    ord_pawn.move_pawn('down', hold_time)
 
 @ord.input("XD")
 def xdfunc():
     print("XD")
-    win32_functions.set_focus(process_name)
     ord_pawn.move_pawn('left', hold_time)
 
 @ord.input("YD")
 def ydfunc():
     print("YD")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('down')
 
 @ord.input("YU")
 def yufunc():
     print("YU")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('up')
 
 @ord.input("A")
 def afunc():
     print("A")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('z')
 
 @ord.input("B")
 def bfunc():
     print("B")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('x')
 
 @ord.input("C")
 def cfunc():
     print("C")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('c')
 
 @ord.input("AA")
@@ -172,26 +164,22 @@ def wait5():
 @ord.input("AC")
 def acfunc():
     print("AC")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('z')
 
 @ord.input("BC")
 def bcfunc():
     print("BC")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('x')
 
 @ord.input("CC")
 def ccfunc():
     print("CC")
-    win32_functions.set_focus(process_name)
     pydirectinput.press('c')
 
 @ord.input("AB")
 def abfunc():
     global sprint
     # fix
-    win32_functions.set_focus(process_name)
     if not sprint:
         pydirectinput.keyDown("x")
         sprint = True
