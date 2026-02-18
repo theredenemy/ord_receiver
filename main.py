@@ -159,6 +159,7 @@ def cfunc():
 
 @ord.input("AA")
 def wait5():
+    print("AA")
     time.sleep(5)
 
 @ord.input("AC")
@@ -179,16 +180,20 @@ def ccfunc():
 @ord.input("AB")
 def abfunc():
     global sprint
+    print("AB")
     # fix
     if not sprint:
         pydirectinput.keyDown("x")
         sprint = True
+        print("Sprint is now on")
     else:
         pydirectinput.keyUp("x")
         sprint = False
+        print("Sprint is now off")
 
 @ord.input("CA")
 def cafunc():
+    print("CA")
     time.sleep(1)
 
 @ord.eom
