@@ -29,7 +29,7 @@ time.sleep(3)
 ord = OrdInput()
 move_cam = False
 upload = True
-hold_time = 0.1
+hold_time = 0.2
 sprint = False
 process_name = "DELTARUNE.exe"
 while True:
