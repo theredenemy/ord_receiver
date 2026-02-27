@@ -200,6 +200,11 @@ def cafunc():
 
 @ord.eom
 def eom():
+    if sprint:
+        pydirectinput.keyUp("x")
+        sprint = False
+        print("Sprint is now off")
+
     print("EOM")
     time.sleep(6)
     if not processchecklib.process_check(process_name):
