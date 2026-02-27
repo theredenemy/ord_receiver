@@ -87,7 +87,8 @@ def start_ord():
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2\\DELTARUNE.exe", cwd="C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2")
-        time.sleep(60)
+        #time.sleep(60)
+        time.sleep(5)
         return
     win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
