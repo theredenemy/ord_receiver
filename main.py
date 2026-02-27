@@ -86,7 +86,7 @@ def start_ord():
     cl.start_record()
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
-        subprocess.Popen("C:\\Program Files (x86)\\SURVEY_PROGRAM\\DELTARUNE.exe", cwd="C:\\Program Files (x86)\\SURVEY_PROGRAM")
+        subprocess.Popen("C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2\\DELTARUNE.exe", cwd="C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2")
         time.sleep(60)
         return
     win32_functions.set_focus(process_name)
