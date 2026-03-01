@@ -89,6 +89,11 @@ def start_ord():
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2\\DELTARUNE.exe", cwd="C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2")
         #time.sleep(60)
         time.sleep(5)
+        pydirectinput.press("z")
+        time.sleep(10)
+        pydirectinput.press("z")
+        time.sleep(2)
+        pydirectinput.press("z")
         return
     win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
