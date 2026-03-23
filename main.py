@@ -95,6 +95,7 @@ def start_ord():
         pydirectinput.press("z")
         time.sleep(2)
         pydirectinput.press("z")
+        time.sleep(5)
         return
     for proc in psutil.process_iter(['name']):
         if proc.info['name'] == process_name:
