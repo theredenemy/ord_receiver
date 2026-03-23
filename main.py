@@ -17,6 +17,7 @@ import os
 import pathlib
 import paramiko
 import requests
+import psutil
 if not processchecklib.process_check("obs64.exe"):
         processloop = 0
         os.system('del "%Appdata%\\obs-studio\\.sentinel\\" /f /q')
@@ -95,6 +96,10 @@ def start_ord():
         time.sleep(2)
         pydirectinput.press("z")
         return
+    for proc in psutil.process_iter(['name']):
+        if proc.info['name'] == process_name:
+            proc.resume()
+
     win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
     print("start")
@@ -212,6 +217,9 @@ def eom():
         print("Sprint is now off")
 
     print("EOM")
+    for proc in psutil.process_iter(['name']):
+        if proc.info['name'] == process_name:
+            proc.suspend()
     time.sleep(6)
     if not processchecklib.process_check(process_name):
         invaild_input(True)
@@ -220,12 +228,13 @@ def eom():
         json_data = {'state': 'dead'}
         url = f"http://{ord_server_ip}:{ord_server_port}/ord/pawn/state"
         requests.post(url, json=json_data)
-        
+    
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)
     while(fileinuse_functions.is_file_in_use(recording) == True):
         pass
+
     if not os.path.isdir("views"):
         os.mkdir("views")
     number = 1

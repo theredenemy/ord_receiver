@@ -6,6 +6,7 @@ import win32process
 import ctypes
 import psutil
 import time
+import win32com.client
 def reboot():
     
     # What The Fuck
@@ -22,6 +23,16 @@ def reboot():
     win32api.ExitWindowsEx(win32con.EWX_REBOOT | win32con.EWX_FORCE, 0)
     win32api.CloseHandle(token)
     return True
+def GetForegroundWindowProcessName():
+    try:
+
+        hwnd = win32gui.GetForegroundWindow()
+
+        _, pid = win32process.GetWindowThreadProcessId(hwnd)
+        
+        return psutil.Process(pid).name()
+    except Exception as e:
+        return False
 
 def get_pid(process_name):
     
@@ -77,7 +88,9 @@ def set_focus_win32(process_name):
                     print("Window Not Responding")
                     time.sleep(3)
                 win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
-                
+
+                shell = win32com.client.Dispatch("WScript.Shell")
+                shell.SendKeys('%')
 
                 win32gui.SetForegroundWindow(hwnd)
             
