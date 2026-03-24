@@ -218,9 +218,10 @@ def eom():
         print("Sprint is now off")
 
     print("EOM")
-    for proc in psutil.process_iter(['name']):
-        if proc.info['name'] == process_name:
-            proc.suspend()
+    if processchecklib.process_check(process_name):
+        for proc in psutil.process_iter(['name']):
+            if proc.info['name'] == process_name:
+                proc.suspend()
     time.sleep(6)
     if not processchecklib.process_check(process_name):
         invaild_input(True)
@@ -229,7 +230,7 @@ def eom():
         json_data = {'state': 'dead'}
         url = f"http://{ord_server_ip}:{ord_server_port}/ord/pawn/state"
         requests.post(url, json=json_data)
-    
+        
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)
