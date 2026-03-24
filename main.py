@@ -18,6 +18,8 @@ import pathlib
 import paramiko
 import requests
 import psutil
+import win32gui
+import win32api
 if not processchecklib.process_check("obs64.exe"):
         processloop = 0
         os.system('del "%Appdata%\\obs-studio\\.sentinel\\" /f /q')
@@ -116,6 +118,13 @@ def before():
         return False
     else:
         win32_functions.set_focus_win32(process_name)
+        window = win32_functions.GetHwndsFromPID(win32_functions.get_pid(process_name))[0]
+
+        x, y = win32_functions.get_window_x_y(window)
+
+        rect = win32gui.GetWindowRect(window)
+        if rect:
+            win32api.ClipCursor(rect)
         return True
 
 
@@ -218,6 +227,7 @@ def eom():
         print("Sprint is now off")
 
     print("EOM")
+    win32api.ClipCursor((0,0,0,0))
     if processchecklib.process_check(process_name):
         for proc in psutil.process_iter(['name']):
             if proc.info['name'] == process_name:
