@@ -108,7 +108,7 @@ def start_ord():
     window = win32_functions.GetHwndsFromPID(win32_functions.get_pid(process_name))[0]
 
     x, y = win32_functions.get_window_x_y(window)
-    win32api.SetCursorPos(x, y)
+    win32api.SetCursorPos((x, y))
     print("start")
 @ord.invaild
 def ord_invalid():
