@@ -121,7 +121,7 @@ def before():
 
 @ord.input("RENDER")
 def ren():
-    time.sleep(3)
+    time.sleep(5)
     ord_reader.endinput = True
 
 @ord.input("XU")
