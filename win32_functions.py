@@ -6,8 +6,6 @@ import win32process
 import ctypes
 import psutil
 import time
-import traceback
-import logging
 import win32com.client
 def reboot():
     
