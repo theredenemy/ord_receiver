@@ -94,6 +94,8 @@ def start_ord():
     if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
+        while not win32_functions.get_pid_window(process_name):
+            pass
         time.sleep(1)
         pydirectinput.press("m")
         time.sleep(5)
