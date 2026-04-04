@@ -104,7 +104,7 @@ def start_ord():
         if proc.info['name'] == process_name:
             proc.resume()
 
-    win32_functions.set_focus(process_name)
+    win32_functions.set_focus_win32(process_name)
     pid = ord_reader.get_pid(process_name)
     window = win32_functions.GetHwndsFromPID(win32_functions.get_pid(process_name))[0]
 
