@@ -76,6 +76,8 @@ def start_ord():
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
         while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock")) == True):
             pass
+        if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
+            os.remove(os.path.join(program_dir, "redraw.lock"))
     status = cl.get_record_status()
     scene_list = cl.get_scene_list()
     scenes = [scene['sceneName'] for scene in scene_list.scenes]
@@ -196,6 +198,8 @@ def eom():
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
         while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock")) == True):
             pass
+        if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
+            os.remove(os.path.join(program_dir, "redraw.lock"))
 
     print("EOM")
     win32api.ClipCursor((0,0,0,0))
