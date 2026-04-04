@@ -91,7 +91,7 @@ def start_ord():
         cl.create_scene(scene_name)
     cl.set_current_program_scene(scene_name)
     cl.start_record()
-    if not processchecklib.process_check(process_name):
+    if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
         time.sleep(1)
