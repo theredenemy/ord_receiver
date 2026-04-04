@@ -6,6 +6,7 @@ import shutil
 config = configparser.ConfigParser()
 venvdir = "venv"
 configfile = "checksums.ini"
+script = "gris_paint_ord.py"
 requirements_md5 = configHelper.read_config(configfile, "venv", "requirements_md5", "hi")
 getmd5 = hashlib.md5(open('requirements.txt', 'rb').read()).hexdigest()
 if not requirements_md5 == getmd5:
@@ -29,7 +30,7 @@ if os.path.isdir(venvdir) == False:
 
 f = open("load_venv.bat", "w" )
 loadvenvbat = f'''call {venvdir}/Scripts/activate.bat
-python main.py'''
+python {script}'''
 f.write(loadvenvbat)
 f.close()
 os.system("load_venv.bat")
