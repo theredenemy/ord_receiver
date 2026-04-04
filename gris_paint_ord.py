@@ -90,7 +90,7 @@ def start_ord():
     cl.start_record()
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
-        subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd="C:\Users\Administrator\Documents\gris_paint")
+        subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd="C:\\Users\\Administrator\\Documents\\gris_paint")
         
         time.sleep(5)
         return
