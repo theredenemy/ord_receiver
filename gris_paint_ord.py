@@ -33,6 +33,7 @@ ord = OrdInput()
 upload = True
 hold_time = 0.2
 process_name = "gris_paint.exe"
+program_dir = "C:\\Users\\Administrator\\Documents\\gris_paint"
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
@@ -72,8 +73,8 @@ def invaild_input(state=True):
 # START
 @ord.start
 def start_ord():
-    if os.path.isfile(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")):
-        while(fileinuse_functions(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")) == True):
+    if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
+        while(fileinuse_functions(os.path.join(program_dir, "redraw.lock")) == True):
             pass
     status = cl.get_record_status()
     scene_list = cl.get_scene_list()
@@ -90,7 +91,7 @@ def start_ord():
     cl.start_record()
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
-        subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd="C:\\Users\\Administrator\\Documents\\gris_paint")
+        subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
         
         time.sleep(5)
         return
@@ -194,8 +195,8 @@ def cfunc():
 @ord.eom
 def eom():
     pydirectinput.keyUp("d")
-    if os.path.isfile(os.path.join("C:\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")):
-        while(fileinuse_functions(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")) == True):
+    if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
+        while(fileinuse_functions(os.path.join(program_dir, "redraw.lock")) == True):
             pass
 
     print("EOM")
