@@ -92,7 +92,8 @@ def start_ord():
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
-        
+        time.sleep(1)
+        pydirectinput.press("m")
         time.sleep(5)
         return
 
