@@ -194,8 +194,8 @@ def cfunc():
 @ord.eom
 def eom():
     pydirectinput.keyUp("d")
-    if os.path.isfile(os.path.join("C:\Users\Administrator\Documents\gris_paint", "redraw.lock")):
-        while(fileinuse_functions(os.path.join("C:\Users\Administrator\Documents\gris_paint", "redraw.lock")) == True):
+    if os.path.isfile(os.path.join("C:\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")):
+        while(fileinuse_functions(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")) == True):
             pass
 
     print("EOM")
