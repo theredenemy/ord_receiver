@@ -95,9 +95,6 @@ def start_ord():
         
         time.sleep(5)
         return
-    for proc in psutil.process_iter(['name']):
-        if proc.info['name'] == process_name:
-            proc.resume()
 
     win32_functions.set_focus(process_name)
     pid = ord_reader.get_pid(process_name)
@@ -201,10 +198,6 @@ def eom():
 
     print("EOM")
     win32api.ClipCursor((0,0,0,0))
-    if processchecklib.process_check(process_name):
-        for proc in psutil.process_iter(['name']):
-            if proc.info['name'] == process_name:
-                proc.suspend()
     time.sleep(6)
     if not processchecklib.process_check(process_name):
         invaild_input(True)
