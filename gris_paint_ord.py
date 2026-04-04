@@ -72,8 +72,8 @@ def invaild_input(state=True):
 # START
 @ord.start
 def start_ord():
-    if os.path.isfile(os.path.join("C:\Users\Administrator\Documents\gris_paint", "redraw.lock")):
-        while(fileinuse_functions(os.path.join("C:\Users\Administrator\Documents\gris_paint", "redraw.lock")) == True):
+    if os.path.isfile(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")):
+        while(fileinuse_functions(os.path.join("C:\\Users\\Administrator\\Documents\\gris_paint", "redraw.lock")) == True):
             pass
     status = cl.get_record_status()
     scene_list = cl.get_scene_list()
