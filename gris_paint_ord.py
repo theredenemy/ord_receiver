@@ -117,7 +117,7 @@ def ord_invalid():
 @ord.before_input
 def before():
     pydirectinput.keyUp("d")
-    if not win32_functions.get_pid(process_name):
+    if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         return False
     else:
