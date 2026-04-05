@@ -116,7 +116,6 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
-    pydirectinput.keyUp("d")
     if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         return False
