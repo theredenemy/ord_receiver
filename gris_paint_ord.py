@@ -103,7 +103,7 @@ def start_ord():
 
     win32_functions.set_focus_win32(process_name)
     pid = ord_reader.get_pid(process_name)
-    window = win32_functions.GetHwndsFromPID(win32_functions.get_pid(process_name))[0]
+    window = win32_functions.GetHwndsFromPID(win32_functions.get_pid_window(process_name))[0]
 
     x, y = win32_functions.get_window_x_y(window)
     win32api.SetCursorPos((x, y))
