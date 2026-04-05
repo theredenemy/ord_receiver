@@ -165,19 +165,15 @@ def xdfunc():
     ord_pawn.move_pawn('left', hold_time)
     pydirectinput.keyUp("d")
 
-@ord.input("YD")
-def ydfunc():
-    print("YD")
-    pydirectinput.keyDown("d")
-    pydirectinput.press('down')
-    pydirectinput.keyUp("d")
+# @ord.input("YD")
+# def ydfunc():
+#     print("YD")
+#     pydirectinput.press('down')
 
-@ord.input("YU")
-def yufunc():
-    print("YU")
-    pydirectinput.keyDown("d")
-    pydirectinput.press('up')
-    pydirectinput.keyUp("d")
+# @ord.input("YU")
+# def yufunc():
+#     print("YU")
+#     pydirectinput.press('up')
 
 @ord.input("A")
 def afunc():
@@ -196,7 +192,6 @@ def cfunc():
 
 @ord.eom
 def eom():
-    pydirectinput.keyUp("d")
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
         while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock")) == True):
             pass
