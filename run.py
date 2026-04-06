@@ -6,7 +6,7 @@ import shutil
 config = configparser.ConfigParser()
 venvdir = "venv"
 configfile = "checksums.ini"
-script = "main.py"
+script = "launcher.py"
 requirements_md5 = configHelper.read_config(configfile, "venv", "requirements_md5", "hi")
 getmd5 = hashlib.md5(open('requirements.txt', 'rb').read()).hexdigest()
 if not requirements_md5 == getmd5:
