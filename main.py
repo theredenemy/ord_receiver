@@ -88,7 +88,7 @@ def start_ord():
     cl.set_current_program_scene(scene_name)
     cl.start_record()
     if not processchecklib.process_check(process_name):
-        ord_reader.endinput = True
+        ord_reader.endinput = False
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2\\DELTARUNE.exe", cwd="C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2")
         
         time.sleep(5)
@@ -99,6 +99,7 @@ def start_ord():
         pydirectinput.press("z")
         time.sleep(5)
         time.sleep(60)
+        time.sleep(10)
         return
     for proc in psutil.process_iter(['name']):
         if proc.info['name'] == process_name:
