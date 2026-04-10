@@ -1,5 +1,7 @@
 /.venv
+/venv
 /views
+/startup_view
 /inputs.txt
 /__pycache__
 receiver.ini

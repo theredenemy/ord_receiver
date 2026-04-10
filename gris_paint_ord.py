@@ -15,7 +15,7 @@ import fileinuse_functions
 import win32_functions
 import os
 import pathlib
-import paramiko
+import UploadFiles
 import requests
 import psutil
 import win32gui
@@ -116,11 +116,11 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
+    if process_name == win32_functions.GetForegroundWindowProcessName():
+        return True
     if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         return False
-    if process_name == win32_functions.GetForegroundWindowProcessName():
-        return True
     else:
         win32_functions.set_focus_win32(process_name)
         window = win32_functions.GetHwndsFromPID(win32_functions.get_pid_window(process_name))[0]
@@ -234,35 +234,11 @@ def eom():
     materials_dir = os.path.join(view_dir, "materials")
     sound_dir = os.path.join(view_dir, "sound")
     if upload:
-        ssh_client = paramiko.SSHClient()
-
-        ssh_client.load_system_host_keys()
-
-        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        print("Connecting")
-        ssh_client.connect(hostname=host, port=port, username=user, allow_agent=True, key_filename=ssh_keyfile)
-        print("Connected")
-        sftp = ssh_client.open_sftp()
-        print("Uploading Files")
-        for file in os.listdir(materials_dir):
-            filepath = os.path.join(materials_dir, file)
-            basefile = os.path.basename(filepath)
-            if os.path.isfile(filepath):
-                print(filepath)
-                sftp.put(localpath=filepath, remotepath=f"/tf/materials/{basefile}" )
-        
-        for file in os.listdir(sound_dir):
-            filepath = os.path.join(sound_dir, file)
-            basefile = os.path.basename(filepath)
-            if os.path.isfile(filepath):
-                print(filepath)
-                sftp.put(localpath=filepath, remotepath=f"/tf/sound/{basefile}" )
-        
-        sftp.put(localpath=f"{view_dir}\\view{fileext}", remotepath=f"/tf/public/view{fileext}")
-        
-        sftp.close()
-        ssh_client.close()
-        cl.disconnect()
+        UploadFiles.upload_dir(materials_dir, "/tf/materials", host, port, user, ssh_keyfile)
+        UploadFiles.upload_dir(sound_dir, "/tf/sound", host, port, user, ssh_keyfile)
+        UploadFiles.upload_file(f"{view_dir}\\view{fileext}", "/tf/public", host, port, user, ssh_keyfile)
+    
+    cl.disconnect()
 
     
     
