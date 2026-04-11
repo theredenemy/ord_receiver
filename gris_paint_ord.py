@@ -98,6 +98,8 @@ def start_ord():
             pass
         
         time.sleep(5)
+        cl.start_record()
+        time.sleep(1.2)
         return
     cl.start_record()
     time.sleep(1.2)
