@@ -100,6 +100,7 @@ def start_ord():
         time.sleep(5)
         cl.start_record()
         time.sleep(1.2)
+        pydirectinput.press("m")
         return
     cl.start_record()
     time.sleep(1.2)
