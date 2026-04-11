@@ -90,17 +90,18 @@ def start_ord():
     if not scene_name in scenes:
         cl.create_scene(scene_name)
     cl.set_current_program_scene(scene_name)
-    cl.start_record()
+    
     if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
         while not win32_functions.get_pid_window(process_name):
             pass
-        time.sleep(1.2)
-        pydirectinput.press("m")
+        
         time.sleep(5)
         return
-
+    cl.start_record()
+    time.sleep(1.2)
+    pydirectinput.press("m")
     win32_functions.set_focus_win32(process_name)
     pid = ord_reader.get_pid(process_name)
     window = win32_functions.GetHwndsFromPID(win32_functions.get_pid_window(process_name))[0]
