@@ -99,11 +99,11 @@ def start_ord():
         
         time.sleep(5)
         cl.start_record()
-        time.sleep(1.2)
+        time.sleep(0.2)
         pydirectinput.press("m")
         return
     cl.start_record()
-    time.sleep(1.2)
+    time.sleep(0.2)
     pydirectinput.press("m")
     win32_functions.set_focus_win32(process_name)
     pid = ord_reader.get_pid(process_name)
