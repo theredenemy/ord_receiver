@@ -93,7 +93,7 @@ def start_ord():
         
         time.sleep(5)
         pydirectinput.press("z")
-        time.sleep(10)
+        time.sleep(20)
         pydirectinput.press("z")
         time.sleep(2)
         pydirectinput.press("z")
