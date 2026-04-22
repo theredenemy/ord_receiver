@@ -7,7 +7,7 @@ config_file = "receiver.ini"
 
 ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
-url = f"http://{ord_server_ip}:{ord_server_port}/ord/mode"
+url = f"http://{ord_server_ip}:{ord_server_port}/ord/info"
 data = requests.get(url)
 
 json_data = json.loads(data.text)
