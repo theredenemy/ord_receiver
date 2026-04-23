@@ -57,6 +57,8 @@ user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
 ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
+ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
+
 
 def invaild_input(state=True):
     resp = cl.get_scene_item_list(scene_name)
@@ -247,7 +249,7 @@ def eom():
         invaild_input(False)
         json_data = {'state': 'dead'}
         url = f"http://{ord_server_ip}:{ord_server_port}/ord/pawn/state"
-        requests.post(url, json=json_data)
+        requests.post(url, json=json_data, headers={'X-ORD-KEY': ord_key})
         
     resp = cl.stop_record()
     recording = resp.output_path

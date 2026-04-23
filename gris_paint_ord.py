@@ -16,8 +16,6 @@ import win32_functions
 import os
 import pathlib
 import UploadFiles
-import requests
-import psutil
 import win32gui
 import win32api
 if not processchecklib.process_check("obs64.exe"):
@@ -56,6 +54,7 @@ user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
 ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
+ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
 
 def invaild_input(state=True):
     resp = cl.get_scene_item_list(scene_name)
