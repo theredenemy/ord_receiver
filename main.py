@@ -34,7 +34,7 @@ move_cam = False
 upload = True
 hold_time = 0.2
 sprint = False
-process_name = "DELTARUNE.exe"
+
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
@@ -47,6 +47,7 @@ scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
+process_name = configHelper.read_config(config_file, "delta", "process_name", default_value="DELTARUNE.exe") 
 
 if not os.path.isfile(config_file):
     makeConfig()
@@ -55,9 +56,10 @@ host = configHelper.read_config(config_file, "sftp", "host", default_value="127.
 port = configHelper.read_config(config_file, "sftp", "port", default_value=21, is_int=True)
 user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky")
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
-ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
+ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.246")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
+game_dir = configHelper.read_config(config_file, "delta", "game_dir", default_value="C:\\Users\\ORD_USER\\Documents\\DELTARUNEChapter 1&2")
 
 
 def invaild_input(state=True):
@@ -89,9 +91,10 @@ def start_ord():
         cl.create_scene(scene_name)
     cl.set_current_program_scene(scene_name)
     cl.start_record()
+
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = False
-        subprocess.Popen("C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2\\DELTARUNE.exe", cwd="C:\\Users\\Administrator\\Documents\\DELTARUNEChapter 1&2")
+        subprocess.Popen(os.path.join(game_dir, process_name), cwd=game_dir)
         
         time.sleep(5)
         pydirectinput.press("z")

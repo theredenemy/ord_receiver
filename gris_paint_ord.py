@@ -31,7 +31,7 @@ ord = OrdInput()
 upload = True
 hold_time = 0.2
 process_name = "gris_paint.exe"
-program_dir = "C:\\Users\\Administrator\\Documents\\gris_paint"
+program_dir = "C:\\Users\\ORD_USER\\Documents\\gris_paint"
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
@@ -52,7 +52,7 @@ host = configHelper.read_config(config_file, "sftp", "host", default_value="127.
 port = configHelper.read_config(config_file, "sftp", "port", default_value=21, is_int=True)
 user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky")
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
-ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
+ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.246")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
 
@@ -92,7 +92,7 @@ def start_ord():
     
     if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
-        subprocess.Popen("C:\\Users\\Administrator\\Documents\\gris_paint\\gris_paint.exe", cwd=program_dir)
+        subprocess.Popen(os.path.join(program_dir, process_name), cwd=program_dir)
         while not win32_functions.get_pid_window(process_name):
             pass
         
