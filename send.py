@@ -9,7 +9,7 @@ config_file = "receiver.ini"
 host = configHelper.read_config(config_file, "sftp", "host", default_value="127.0.0.1")
 port = configHelper.read_config(config_file, "sftp", "port", default_value=21, is_int=True)
 user = configHelper.read_config(config_file, "sftp", "user", default_value="fsky")
-ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.100")
+ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.246")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")

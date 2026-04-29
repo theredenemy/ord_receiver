@@ -20,7 +20,7 @@ import win32gui
 import win32api
 if not processchecklib.process_check("obs64.exe"):
         processloop = 0
-        os.system('del "%Appdata%\\obs-studio\\.sentinel\\" /f /q')
+        os.system('del %Appdata%\\obs-studio\\.sentinel\\ /f /q')
         subprocess.Popen("C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe", cwd="C:\\Program Files\\obs-studio\\bin\\64bit")
         while (processloop < 1):
             if win32_functions.get_pid("obs64.exe"):
