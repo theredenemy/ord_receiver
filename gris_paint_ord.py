@@ -30,8 +30,7 @@ time.sleep(3)
 ord = OrdInput()
 upload = True
 hold_time = 0.2
-process_name = "gris_paint.exe"
-program_dir = "C:\\Users\\ORD_USER\\Documents\\gris_paint"
+
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
@@ -44,7 +43,8 @@ scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
-
+process_name = configHelper.read_config(config_file, "gris", "process_name", default_value="gris_paint.exe")
+program_dir = configHelper.read_config(config_file, "gris", "program_dir", default_value="C:\\Users\\ORD_USER\\Documents\\gris_paint")
 if not os.path.isfile(config_file):
     makeConfig()
 inputs_file = "inputs.txt"
