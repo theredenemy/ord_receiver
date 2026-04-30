@@ -234,6 +234,7 @@ def cafunc():
 @ord.eom
 def eom():
     global sprint
+    time.sleep(4)
     if sprint:
         pydirectinput.keyUp("x")
         sprint = False
