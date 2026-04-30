@@ -97,7 +97,7 @@ def start_ord():
         subprocess.Popen(os.path.join(game_dir, process_name), cwd=game_dir)
         
         time.sleep(5)
-        pydirectinput.press("z")
+        
         time.sleep(20)
         pydirectinput.press("z")
         time.sleep(2)
