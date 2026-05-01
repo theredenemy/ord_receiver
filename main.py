@@ -47,7 +47,7 @@ scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
-process_name = configHelper.read_config(config_file, "delta", "process_name", default_value="DELTARUNE.exe") 
+
 
 if not os.path.isfile(config_file):
     makeConfig()
@@ -59,8 +59,8 @@ ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value
 ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.246")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
-game_dir = configHelper.read_config(config_file, "delta", "game_dir", default_value="C:\\Users\\ORD_USER\\Documents\\DELTARUNEChapter 1&2")
-
+game_dir = configHelper.read_config(config_file, "delta", "game_dir", default_value="C:\\Users\\ORD_USER\\Documents\\DELTARUNE_ORD")
+process_name = configHelper.read_config(config_file, "delta", "process_name", default_value="DELTARUNE_ORD.exe") 
 
 def invaild_input(state=True):
     resp = cl.get_scene_item_list(scene_name)
@@ -75,6 +75,14 @@ def invaild_input(state=True):
     item_id = resp.scene_item_id
 
     cl.set_scene_item_enabled(scene_name, item_id, state)
+def check_if_game_end():
+    with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
+        end = int(f.read().strip())
+        if end == 1:
+            return True
+        else:
+            return False
+
 # START
 @ord.start
 def start_ord():
@@ -95,6 +103,10 @@ def start_ord():
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = False
         subprocess.Popen(os.path.join(game_dir, process_name), cwd=game_dir)
+        while win32_functions.get_pid(process_name):
+            pass
+        if not win32_functions.GetForegroundWindowProcessName() == process_name:
+            win32_functions.set_focus_win32(process_name)
         
         time.sleep(5)
         
@@ -124,6 +136,12 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
+    if check_if_game_end():
+        ord_reader.endinput = True
+        return False
+        
+
+    
     if process_name == win32_functions.GetForegroundWindowProcessName():
         return True
     if not win32_functions.get_pid(process_name):
@@ -234,6 +252,7 @@ def cafunc():
 @ord.eom
 def eom():
     global sprint
+    ending = check_if_game_end()
     time.sleep(4)
     if sprint:
         pydirectinput.keyUp("x")
@@ -242,19 +261,27 @@ def eom():
 
     print("EOM")
     win32api.ClipCursor((0,0,0,0))
-    if processchecklib.process_check(process_name):
+    if processchecklib.process_check(process_name) and not ending:
         for proc in psutil.process_iter(['name']):
             if proc.info['name'] == process_name:
                 proc.suspend()
     time.sleep(6)
-    if not processchecklib.process_check(process_name):
+    if not processchecklib.process_check(process_name) and not ending:
         invaild_input(True)
         time.sleep(5)
         invaild_input(False)
         json_data = {'state': 'dead'}
         url = f"http://{ord_server_ip}:{ord_server_port}/ord/pawn/state"
         requests.post(url, json=json_data, headers={'X-ORD-KEY': ord_key})
-        
+    if check_if_game_end():
+        while check_if_game_end():
+            pass
+        for i in range(5):
+            invaild_input(True)
+            time.sleep(1)
+            invaild_input(False)
+            time.sleep(1)
+        # NOTE: ADD CODE HERE
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)
