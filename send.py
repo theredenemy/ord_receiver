@@ -16,12 +16,13 @@ ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_val
 url = f"http://{ord_server_ip}:{ord_server_port}/ord/info"
 try:
     data = requests.get(url, headers={'X-ORD-KEY': ord_key})
-    json_data = json.loads(data.text)
-    state = json_data.get('state')
 except requests.exceptions.ConnectionError:
     data = False
+if data:
+    json_data = json.loads(data.text)
+    state = json_data.get('state')
+else:
     state = 'dead'
-
 
 
 if not state == 'dead' and data:
