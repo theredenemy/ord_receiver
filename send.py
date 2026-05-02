@@ -14,13 +14,17 @@ ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", de
 ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value="C:\\Users\\FSKY\\.ssh\\kulcs")
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
 url = f"http://{ord_server_ip}:{ord_server_port}/ord/info"
-data = requests.get(url, headers={'X-ORD-KEY': ord_key})
+try:
+    data = requests.get(url, headers={'X-ORD-KEY': ord_key})
+    json_data = json.loads(data.text)
+    state = json_data.get('state')
+except requests.exceptions.ConnectionError:
+    data = False
+    state = 'dead'
 
-json_data = json.loads(data.text)
 
-state = json_data.get('state')
 
-if not state == 'dead':
+if not state == 'dead' and data:
     view_vid = "view.mp4"
     view_dir = os.path.join(os.getcwd(), "startup_view")
     if not os.path.isdir(view_dir):
