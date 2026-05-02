@@ -103,7 +103,7 @@ def start_ord():
     if not processchecklib.process_check(process_name):
         ord_reader.endinput = False
         subprocess.Popen(os.path.join(game_dir, process_name), cwd=game_dir)
-        while win32_functions.get_pid(process_name):
+        while not win32_functions.get_pid_window(process_name):
             pass
         if not win32_functions.GetForegroundWindowProcessName() == process_name:
             win32_functions.set_focus_win32(process_name)
