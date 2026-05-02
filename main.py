@@ -281,7 +281,8 @@ def eom():
             time.sleep(1)
             invaild_input(False)
             time.sleep(1)
-        # NOTE: ADD CODE HERE
+        if os.path.isfile("end_game.cmd"):
+            os.system("end_game.cmd")
     resp = cl.stop_record()
     recording = resp.output_path
     print(recording)
