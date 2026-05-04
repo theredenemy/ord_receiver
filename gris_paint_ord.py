@@ -18,6 +18,7 @@ import pathlib
 import UploadFiles
 import win32gui
 import win32api
+from count_steps import count_steps
 if not processchecklib.process_check("obs64.exe"):
         processloop = 0
         os.system('del %Appdata%\\obs-studio\\.sentinel\\ /f /q')
@@ -145,7 +146,7 @@ def ren():
 def xufunc(num):
     if num > 1:
         print(f"XUx{num}")
-        hold = hold_time + num
+        hold = count_steps(hold_time, num)
     else:
         print("XU")
         hold = hold_time
@@ -156,7 +157,7 @@ def xufunc(num):
 def zufunc(num):
     if num > 1:
         print(f"ZUx{num}")
-        hold = hold_time + num
+        hold = count_steps(hold_time, num)
     else:
         print("ZU")
         hold = hold_time
@@ -166,7 +167,7 @@ def zufunc(num):
 def zdfunc(num):
     if num > 1:
         print(f"ZDx{num}")
-        hold = hold_time + num
+        hold = count_steps(hold_time, num)
     else:
         print("ZD")
         hold = hold_time
@@ -176,7 +177,7 @@ def zdfunc(num):
 def xdfunc(num):
     if num > 1:
         print(f"XDx{num}")
-        hold = hold_time + num
+        hold = count_steps(hold_time, num)
     else:
         print("XD")
         hold = hold_time
