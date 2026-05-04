@@ -206,6 +206,16 @@ def cfunc():
     print("C")
     pydirectinput.press('c')
 
+@ord.input("CB")
+def CBFunc():
+    print("AB")
+    if not ord_reader.input_chain_on:
+        ord_reader.input_chain_on = True
+        print("Input Chain is now on")
+    else:
+        ord_reader.input_chain_on = False
+        print("Input Chain is now off")
+
 @ord.eom
 def eom():
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
