@@ -23,7 +23,7 @@ if mode == "game":
         os.system("taskkill /f /im gris_paint.exe")
     os.system("python main.py")
 elif mode == "draw":
-    if win32_functions.get_pid_window("DELTARUNE.exe"):
+    if win32_functions.get_pid_window("DELTARUNE_ORD.exe"):
         os.system("taskkill /f /im DELTARUNE.exe")
     os.system("python gris_paint_ord.py")
 
