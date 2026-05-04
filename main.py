@@ -168,7 +168,7 @@ def ren():
 def xufunc(num):
     if num > 1:
         print(f"XUx{num}")
-        hold = num - (num % hold_time)
+        hold = hold_time + num
     else:
         print("XU")
         hold = hold_time
@@ -179,7 +179,7 @@ def xufunc(num):
 def zufunc(num):
     if num > 1:
         print(f"ZUx{num}")
-        hold = num - (num % hold_time)
+        hold = hold_time + num
     else:
         print("ZU")
         hold = hold_time
@@ -189,7 +189,7 @@ def zufunc(num):
 def zdfunc(num):
     if num > 1:
         print(f"ZDx{num}")
-        hold = num - (num % hold_time)
+        hold = hold_time + num
     else:
         print("ZD")
         hold = hold_time
@@ -199,7 +199,7 @@ def zdfunc(num):
 def xdfunc(num):
     if num > 1:
         print(f"XDx{num}")
-        hold = num - (num % hold_time)
+        hold = hold_time + num
     else:
         print("XD")
         hold = hold_time
