@@ -31,7 +31,7 @@ if not processchecklib.process_check("obs64.exe"):
 time.sleep(3)
 ord = OrdInput()
 move_cam = False
-upload = False
+upload = True
 hold_time = 0.1
 sprint = False
 
