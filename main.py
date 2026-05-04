@@ -31,8 +31,8 @@ if not processchecklib.process_check("obs64.exe"):
 time.sleep(3)
 ord = OrdInput()
 move_cam = False
-upload = True
-hold_time = 0.2
+upload = False
+hold_time = 0.1
 sprint = False
 
 while True:
@@ -164,26 +164,46 @@ def ren():
     time.sleep(5)
     ord_reader.endinput = True
 
-@ord.input("XU")
-def xufunc():
-    print("XU")
-    ord_pawn.move_pawn('right', hold_time)
+@ord.input("XU", True)
+def xufunc(num):
+    if num > 1:
+        print(f"XUx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("XU")
+        hold = hold_time
+    ord_pawn.move_pawn('right', hold)
     
 
-@ord.input("ZU")
-def zufunc():
-   print("ZU")
-   ord_pawn.move_pawn('up', hold_time)
+@ord.input("ZU", True)
+def zufunc(num):
+    if num > 1:
+        print(f"ZUx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("ZU")
+        hold = hold_time
+    ord_pawn.move_pawn('up', hold)
 
-@ord.input("ZD")
-def zdfunc():
-   print("ZD")
-   ord_pawn.move_pawn('down', hold_time)
+@ord.input("ZD", True)
+def zdfunc(num):
+    if num > 1:
+        print(f"ZDx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("ZD")
+        hold = hold_time
+    ord_pawn.move_pawn('down', hold)
 
-@ord.input("XD")
-def xdfunc():
-    print("XD")
-    ord_pawn.move_pawn('left', hold_time)
+@ord.input("XD", True)
+def xdfunc(num):
+    if num > 1:
+        print(f"XDx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("XD")
+        hold = hold_time
+    ord_pawn.move_pawn('left', hold)
 
 @ord.input("YD")
 def ydfunc():
@@ -248,6 +268,15 @@ def abfunc():
 def cafunc():
     print("CA")
     time.sleep(1)
+@ord.input("CB")
+def CBFunc():
+    print("AB")
+    if not ord_reader.input_chain_on:
+        ord_reader.input_chain_on = True
+        print("Input Chain is now on")
+    else:
+        ord_reader.input_chain_on = False
+        print("Input Chain is now off")
 
 @ord.eom
 def eom():

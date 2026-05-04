@@ -5,6 +5,9 @@ import psutil
 
 maindir = os.getcwd()
 endinput = False
+input_chain_on = True
+can_do_input_chain = []
+skip_in_list = []
 class OrdInput:
     def __init__(self):
         self.registry = {}
@@ -15,8 +18,10 @@ class OrdInput:
     def start(self, func):
         self.start_func = func
         return func
-    def input(self, input):
+    def input(self, input, input_chain=False):
         def wrapper(func):
+            if input_chain:
+                can_do_input_chain.append(input)
             self.registry[input] = func
             return func
         return wrapper
@@ -33,13 +38,16 @@ class OrdInput:
         if self.start_func:
             self.start_func()
     
-    def make_input(self, input):
+    def make_input(self, input, chain=1):
         if self.before_input_func:
             state = self.before_input_func()
             if state is False:
                 return
         if input in self.registry:
-            self.registry[input]()
+            if input in can_do_input_chain:
+                self.registry[input](chain)
+            else:
+                self.registry[input]()
         else:
             print(f"INVAILD INPUT : {input}")
             if self.invalid_func:
@@ -80,10 +88,25 @@ def read_inputs(input_file, wait=0.5):
     
     ord.start_ord()
 
-    for input in content:
+    for i, input in enumerate(content):
+        if i in skip_in_list:
+            continue
         if endinput:
             break
-        ord.make_input(input.strip())
+        if input.strip() in can_do_input_chain and input_chain_on:
+            chain_count = 1
+            for line in range(maxlines - i):
+                if not line + i + 1 >= len(content):
+                    if content[line + i + 1].strip() == input.strip():
+                        skip_in_list.append(line + i + 1)
+                        chain_count += 1
+                    else:
+                        break
+                else:
+                    break
+            ord.make_input(input.strip(), chain=chain_count)
+        else:
+            ord.make_input(input.strip())
         if not wait == 0:
             time.sleep(wait)
     file.close()

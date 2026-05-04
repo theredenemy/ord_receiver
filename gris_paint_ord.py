@@ -141,34 +141,46 @@ def ren():
     time.sleep(5)
     ord_reader.endinput = True
 
-@ord.input("XU")
-def xufunc():
-    print("XU")
-    pydirectinput.keyDown("d")
-    ord_pawn.move_pawn('right', hold_time)
-    pydirectinput.keyUp("d")
+@ord.input("XU", True)
+def xufunc(num):
+    if num > 1:
+        print(f"XUx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("XU")
+        hold = hold_time
+    ord_pawn.move_pawn('right', hold)
     
 
-@ord.input("ZU")
-def zufunc():
-   print("ZU")
-   pydirectinput.keyDown("d")
-   ord_pawn.move_pawn('up', hold_time)
+@ord.input("ZU", True)
+def zufunc(num):
+    if num > 1:
+        print(f"ZUx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("ZU")
+        hold = hold_time
+    ord_pawn.move_pawn('up', hold)
 
-@ord.input("ZD")
-def zdfunc():
-   print("ZD")
-   pydirectinput.keyDown("d")
-   ord_pawn.move_pawn('down', hold_time)
-   pydirectinput.keyUp("d")
+@ord.input("ZD", True)
+def zdfunc(num):
+    if num > 1:
+        print(f"ZDx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("ZD")
+        hold = hold_time
+    ord_pawn.move_pawn('down', hold)
 
-@ord.input("XD")
-def xdfunc():
-    print("XD")
-    pydirectinput.keyDown("d")
-    ord_pawn.move_pawn('left', hold_time)
-    pydirectinput.keyUp("d")
-
+@ord.input("XD", True)
+def xdfunc(num):
+    if num > 1:
+        print(f"XDx{num}")
+        hold = num - (num % hold_time)
+    else:
+        print("XD")
+        hold = hold_time
+    ord_pawn.move_pawn('left', hold)
 # @ord.input("YD")
 # def ydfunc():
 #     print("YD")
