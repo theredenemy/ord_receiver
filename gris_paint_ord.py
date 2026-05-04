@@ -29,7 +29,7 @@ if not processchecklib.process_check("obs64.exe"):
 time.sleep(3)
 ord = OrdInput()
 upload = True
-hold_time = 0.2
+hold_time = 0.1
 
 while True:
     try:
