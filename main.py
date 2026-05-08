@@ -33,7 +33,7 @@ time.sleep(3)
 ord = OrdInput()
 move_cam = False
 upload = True
-hold_time = 0.1
+hold_time = 0.01
 sprint = False
 
 while True:
