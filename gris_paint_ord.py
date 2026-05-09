@@ -221,7 +221,7 @@ def cfunc():
 
 @ord.input("CB")
 def CBFunc():
-    print("AB")
+    print("CB")
     if not ord_reader.input_chain_on:
         ord_reader.input_chain_on = True
         print("Input Chain is now on")
