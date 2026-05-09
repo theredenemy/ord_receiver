@@ -33,9 +33,8 @@ time.sleep(3)
 ord = OrdInput()
 move_cam = False
 upload = True
-hold_time = 0.001
+hold_time = 0.1
 sprint = False
-
 while True:
     try:
         cl = obs.ReqClient(host="localhost", port=4455)
@@ -167,44 +166,56 @@ def ren():
 
 @ord.input("XU", True)
 def xufunc(num):
-    if num > 1:
-        print(f"XUx{num}")
-        hold = count_steps(hold_time, num)
+    if ord_reader.input_chain_on:
+        if num > 1:
+            print(f"XUx{num}")
+            hold = count_steps(hold_time, num)
+        else:
+            print("XU")
+            hold = hold_time
+        ord_pawn.move_pawn('right', hold)
     else:
-        print("XU")
-        hold = hold_time
-    ord_pawn.move_pawn('right', hold)
+        pydirectinput.press("right")
     
 
 @ord.input("ZU", True)
 def zufunc(num):
-    if num > 1:
-        print(f"ZUx{num}")
-        hold = count_steps(hold_time, num)
+    if ord_reader.input_chain_on:
+        if num > 1:
+            print(f"ZUx{num}")
+            hold = count_steps(hold_time, num)
+        else:
+            print("ZU")
+            hold = hold_time
+        ord_pawn.move_pawn('up', hold)
     else:
-        print("ZU")
-        hold = hold_time
-    ord_pawn.move_pawn('up', hold)
+        pydirectinput.press("up")
 
 @ord.input("ZD", True)
 def zdfunc(num):
-    if num > 1:
-        print(f"ZDx{num}")
-        hold = count_steps(hold_time, num)
+    if ord_reader.input_chain_on:
+        if num > 1:
+            print(f"ZDx{num}")
+            hold = count_steps(hold_time, num)
+        else:
+            print("ZD")
+            hold = hold_time
+        ord_pawn.move_pawn('down', hold)
     else:
-        print("ZD")
-        hold = hold_time
-    ord_pawn.move_pawn('down', hold)
+        pydirectinput.press("down")
 
 @ord.input("XD", True)
 def xdfunc(num):
-    if num > 1:
-        print(f"XDx{num}")
-        hold = count_steps(hold_time, num)
+    if ord_reader.input_chain_on:
+        if num > 1:
+            print(f"XDx{num}")
+            hold = count_steps(hold_time, num)
+        else:
+            print("XD")
+            hold = hold_time
+        ord_pawn.move_pawn('left', hold)
     else:
-        print("XD")
-        hold = hold_time
-    ord_pawn.move_pawn('left', hold)
+        pydirectinput.press("left")
 
 @ord.input("YD")
 def ydfunc():
