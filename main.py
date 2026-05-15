@@ -82,7 +82,13 @@ def check_if_game_end():
             return True
         else:
             return False
-
+def check_if_hold_game():
+    with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
+        end = int(f.read().strip())
+        if end == 1:
+            return True
+        else:
+            return False
 # START
 @ord.start
 def start_ord():
@@ -136,9 +142,14 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
+    if check_if_hold_game():
+        while check_if_hold_game():
+            pass
     if check_if_game_end():
         ord_reader.endinput = True
         return False
+    
+    
         
 
     
@@ -302,11 +313,14 @@ def eom():
 
     print("EOM")
     win32api.ClipCursor((0,0,0,0))
+    if check_if_hold_game():
+        while check_if_hold_game():
+            pass
     if processchecklib.process_check(process_name) and not ending:
         for proc in psutil.process_iter(['name']):
             if proc.info['name'] == process_name:
                 proc.suspend()
-    time.sleep(6)
+    #time.sleep(6)
     if not processchecklib.process_check(process_name) and not ending:
         invaild_input(True)
         time.sleep(5)
