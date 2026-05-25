@@ -92,7 +92,7 @@ def start_ord():
     cl.set_current_program_scene(scene_name)
     
     if not win32_functions.get_pid_window(process_name):
-        ord_reader.endinput = True
+        ord_reader.endinput = False
         subprocess.Popen(os.path.join(program_dir, process_name), cwd=program_dir)
         while not win32_functions.get_pid_window(process_name):
             pass
