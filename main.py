@@ -129,7 +129,7 @@ def start_ord():
             proc.resume()
 
     win32_functions.set_focus_win32(process_name)
-    pid = ord_reader.get_pid(process_name)
+    pid = win32_functions.get_pid(process_name)
     window = win32_functions.GetHwndsFromPID(win32_functions.get_pid(process_name))[0]
 
     x, y = win32_functions.get_window_x_y(window)
@@ -155,7 +155,7 @@ def before():
     
     if process_name == win32_functions.GetForegroundWindowProcessName():
         return True
-    if not win32_functions.get_pid(process_name):
+    if not win32_functions.get_pid_window(process_name):
         ord_reader.endinput = True
         return False
     else:

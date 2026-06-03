@@ -1,7 +1,6 @@
 import os
-import pydirectinput
 import time
-import psutil
+#import psutil
 
 maindir = os.getcwd()
 endinput = False
@@ -57,13 +56,13 @@ class OrdInput:
             self.eom_func()
 
 
-def get_pid(process_name):
-    pid = None
+# def get_pid(process_name):
+#     pid = None
     
-    for proc in psutil.process_iter(['pid', 'name']):
-        if proc.info['name'].lower() == process_name.lower():
-            pid = proc.info['pid']
-            return pid
+#     for proc in psutil.process_iter(['pid', 'name']):
+#         if proc.info['name'].lower() == process_name.lower():
+#             pid = proc.info['pid']
+#             return pid
 
 def getmaxlines(filename):
     linenum = 0
