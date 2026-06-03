@@ -305,7 +305,9 @@ def CBFunc():
 def eom():
     global sprint
     ending = check_if_game_end()
-    time.sleep(4)
+    if check_if_hold_game():
+        while check_if_hold_game():
+            pass
     if sprint:
         pydirectinput.keyUp("x")
         sprint = False
