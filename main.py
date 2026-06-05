@@ -92,18 +92,23 @@ def check_if_hold_game():
 # START
 @ord.start
 def start_ord():
-    status = cl.get_record_status()
-    scene_list = cl.get_scene_list()
-    scenes = [scene['sceneName'] for scene in scene_list.scenes]
-    rec_active = status.output_active
-    if rec_active:
-        resp = cl.stop_record()
-        recording = resp.output_path
-        while(fileinuse_functions.is_file_in_use(recording) == True):
+    while True:
+        try:
+            status = cl.get_record_status()
+            scene_list = cl.get_scene_list()
+            scenes = [scene['sceneName'] for scene in scene_list.scenes]
+            rec_active = status.output_active
+            if rec_active:
+                resp = cl.stop_record()
+                recording = resp.output_path
+                while(fileinuse_functions.is_file_in_use(recording) == True):
+                    pass
+            if not scene_name in scenes:
+                cl.create_scene(scene_name)
+            cl.set_current_program_scene(scene_name)
+            break
+        except obs.error.OBSSDKRequestError:
             pass
-    if not scene_name in scenes:
-        cl.create_scene(scene_name)
-    cl.set_current_program_scene(scene_name)
     cl.start_record()
 
     if not processchecklib.process_check(process_name):
@@ -379,4 +384,4 @@ def eom():
 
 if __name__ == '__main__':
     if os.path.isfile(inputs_file):
-        ord_reader.read_inputs(inputs_file, wait=0.1)
+        ord_reader.read_inputs(inputs_file, ord, wait=0.1)

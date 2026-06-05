@@ -1,6 +1,6 @@
 import os
 import time
-#import psutil
+import __main__
 
 maindir = os.getcwd()
 endinput = False
@@ -73,14 +73,13 @@ def getmaxlines(filename):
         return linenum
 
 
-def read_inputs(input_file, wait=0.5):
-    import __main__
+def read_inputs(input_file, ord: OrdInput, wait=0.5):
     import threading
     global endinput
     maxlines = getmaxlines(input_file)
     lock = open("ord.lock", 'w')
     endinput = False
-    ord = getattr(__main__, 'ord', None)
+    #ord = getattr(__main__, 'ord', None)
     file = open(input_file, 'r', encoding="utf-8", errors='ignore')
     
     content = file.readlines()
