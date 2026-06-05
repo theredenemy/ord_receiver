@@ -44,8 +44,9 @@ scene_name = "ordinance"
 scene_item_name = "INVAILD_INPUT"
 maindir = os.getcwd()
 config_file = "receiver.ini"
-process_name = configHelper.read_config(config_file, "gris", "process_name", default_value="gris_paint.exe")
 program_dir = configHelper.read_config(config_file, "gris", "program_dir", default_value="C:\\Users\\ORD_USER\\Documents\\gris_paint")
+process_name = configHelper.read_config(config_file, "gris", "process_name", default_value="gris_paint.exe")
+
 if not os.path.isfile(config_file):
     makeConfig()
 inputs_file = "inputs.txt"
