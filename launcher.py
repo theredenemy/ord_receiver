@@ -26,5 +26,11 @@ elif mode == "draw":
     if win32_functions.get_pid_window("DELTARUNE_ORD.exe"):
         os.system("taskkill /f /im DELTARUNE_ORD.exe")
     os.system("python gris_paint_ord.py")
+else:
+    if win32_functions.get_pid_window("gris_paint.exe"):
+        os.system("taskkill /f /im gris_paint.exe")
+    if win32_functions.get_pid_window("DELTARUNE_ORD.exe"):
+        os.system("taskkill /f /im DELTARUNE_ORD.exe")
+    os.system("python send.py")
 
 
