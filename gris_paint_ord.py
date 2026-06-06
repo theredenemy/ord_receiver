@@ -246,7 +246,7 @@ def eom():
 
     print("EOM")
     win32api.ClipCursor((0,0,0,0))
-    time.sleep(1)
+    #time.sleep(1)
     if not processchecklib.process_check(process_name):
         invaild_input(True)
         time.sleep(5)
