@@ -191,7 +191,8 @@ def xufunc(num):
             hold = hold_time
         ord_pawn.move_pawn('right', hold)
     else:
-        pydirectinput.press("right")
+        pydirectinput.keyDown("right")
+        pydirectinput.keyUp("right")
     
 
 @ord.input("ZU", True)
@@ -205,7 +206,8 @@ def zufunc(num):
             hold = hold_time
         ord_pawn.move_pawn('up', hold)
     else:
-        pydirectinput.press("up")
+        pydirectinput.keyDown("up")
+        pydirectinput.keyUp("up")
 
 @ord.input("ZD", True)
 def zdfunc(num):
@@ -218,7 +220,8 @@ def zdfunc(num):
             hold = hold_time
         ord_pawn.move_pawn('down', hold)
     else:
-        pydirectinput.press("down")
+        pydirectinput.keyDown("down")
+        pydirectinput.keyUp("down")
 
 @ord.input("XD", True)
 def xdfunc(num):
@@ -231,7 +234,8 @@ def xdfunc(num):
             hold = hold_time
         ord_pawn.move_pawn('left', hold)
     else:
-        pydirectinput.press("left")
+        pydirectinput.keyDown("left")
+        pydirectinput.keyUp("left")
 
 @ord.input("YD")
 def ydfunc():
