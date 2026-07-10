@@ -105,6 +105,7 @@ def check_if_hold_game():
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         
         hold_str = str(f.read())
+        print(hold_str)
         # why the fuck did this just break
         # this will fix it i hope it does
         # FUCK
