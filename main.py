@@ -369,12 +369,12 @@ def eom():
     fileext = pathlib.Path(recording).suffix
     view_dir = os.path.join(maindir, dir)
     shutil.move(recording, f"{view_dir}\\view_og{fileext}")
+    print(f"Moved {recording} to {view_dir}\\view_og{fileext}")
     video_name = "view.mp4"
     os.system(f'ffmpeg -y -i {os.path.join(view_dir, f"view_og{fileext}")} -vf "scale=256:128" -ar 11025 {os.path.join(view_dir, video_name)}')
-    print(f"Moved {recording} to {view_dir}\\view_og{fileext}")
     shutil.move(f"{maindir}\\{inputs_file}", f"{view_dir}\\{inputs_file}")
     print(f"Moved {inputs_file} to {view_dir}\\{inputs_file}")
-    vid2vtf.video_to_vtf(video=f"{view_dir}\\view{fileext}", fps=15, width=256, height=128, output_dir=view_dir)
+    vid2vtf.video_to_vtf(video=os.path.join(view_dir, video_name), fps=15, width=256, height=128, output_dir=view_dir)
     materials_dir = os.path.join(view_dir, "materials")
     sound_dir = os.path.join(view_dir, "sound")
     if upload:
