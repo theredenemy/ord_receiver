@@ -77,7 +77,9 @@ def invaild_input(state=True):
     cl.set_scene_item_enabled(scene_name, item_id, state)
 def check_if_game_end():
     with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
-        end = int(f.read().strip())
+        end_str = str(f.read())
+        end = int(end_str.strip())
+
         if end == 1:
             return True
         else:
