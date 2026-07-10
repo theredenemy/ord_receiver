@@ -84,7 +84,11 @@ def check_if_game_end():
             return False
 def check_if_hold_game():
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
-        hold = int(f.read().strip())
+        
+        hold_str = str(f.read())
+        # why the fuck did this just break
+        # this will fix it i hope it does
+        hold = int(hold_str.strip())
         if hold == 1:
             return True
         else:
