@@ -76,6 +76,8 @@ def invaild_input(state=True):
 
     cl.set_scene_item_enabled(scene_name, item_id, state)
 def check_if_game_end():
+    while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "end.txt")):
+        pass
     with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         end_str = str(f.read())
         end = int(end_str.strip())
@@ -85,11 +87,15 @@ def check_if_game_end():
         else:
             return False
 def check_if_hold_game():
+    # let me try this
+    while fileinuse_functions(os.path.join(game_dir, "hold.txt")):
+        pass
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         
         hold_str = str(f.read())
         # why the fuck did this just break
         # this will fix it i hope it does
+        # FUCK
         hold = int(hold_str.strip())
         if hold == 1:
             return True
