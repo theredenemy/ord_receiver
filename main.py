@@ -368,8 +368,10 @@ def eom():
     filename = pathlib.Path(recording).stem
     fileext = pathlib.Path(recording).suffix
     view_dir = os.path.join(maindir, dir)
-    shutil.move(recording, f"{view_dir}\\view{fileext}")
-    print(f"Moved {recording} to {view_dir}\\view{fileext}")
+    shutil.move(recording, f"{view_dir}\\view_og{fileext}")
+    video_name = "view.mp4"
+    os.system(f'ffmpeg -y -i {os.path.join(view_dir, f"view_og{fileext}")} -vf "scale=256:128" -ar 11025 {os.path.join(view_dir, video_name)}')
+    print(f"Moved {recording} to {view_dir}\\view_og{fileext}")
     shutil.move(f"{maindir}\\{inputs_file}", f"{view_dir}\\{inputs_file}")
     print(f"Moved {inputs_file} to {view_dir}\\{inputs_file}")
     vid2vtf.video_to_vtf(video=f"{view_dir}\\view{fileext}", fps=15, width=256, height=128, output_dir=view_dir)
@@ -378,7 +380,7 @@ def eom():
     if upload:
         UploadFiles.upload_dir(materials_dir, "/tf/materials", host, port, user, ssh_keyfile)
         UploadFiles.upload_dir(sound_dir, "/tf/sound", host, port, user, ssh_keyfile)
-        UploadFiles.upload_file(f"{view_dir}\\view{fileext}", "/tf/public", host, port, user, ssh_keyfile)
+        UploadFiles.upload_file(os.path.join(view_dir, video_name), "/tf/public", host, port, user, ssh_keyfile)
     
     cl.disconnect()
 
