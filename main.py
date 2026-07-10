@@ -89,8 +89,19 @@ def check_if_game_end():
 def check_if_hold_game():
     # let me try this
     # oops forgot is_file_in_use
+    # FUCK
+    hold_str = None
+    hold = None
     while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "hold.txt")):
         pass
+    for i in range(20):
+        with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
+           hold_str = str(f.read())
+           if hold_str:
+               break
+    if not hold_str:
+        print("Failed to get Hold Value")
+        return False
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         
         hold_str = str(f.read())
