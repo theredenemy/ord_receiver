@@ -94,7 +94,7 @@ def check_if_hold_game():
     hold = None
     while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "hold.txt")):
         pass
-    for i in range(20):
+    for i in range(300):
         try:
             with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
                 hold_str = str(f.read())
