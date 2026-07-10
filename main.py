@@ -120,7 +120,8 @@ def start_ord():
             win32_functions.set_focus_win32(process_name)
         
         time.sleep(5)
-        time.sleep(150)
+        # i changed the deltarune mod code so no need for this
+        # time.sleep(150)
         time.sleep(20)
         pydirectinput.press("z")
         time.sleep(2)
