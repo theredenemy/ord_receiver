@@ -87,27 +87,6 @@ def check_if_game_end():
         else:
             return False
 def check_if_hold_game():
-    # let me try this
-    # oops forgot is_file_in_use
-    # FUCK
-    hold_str = None
-    hold = None
-    while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "hold.txt")):
-        pass
-    for i in range(300):
-        try:
-            with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
-                hold_str = str(f.read())
-                hold = int(hold_str.strip())
-                if hold:
-                    break
-        except ValueError:
-            pass
-    if not hold:
-        print("Failed to get Hold Value")
-        return False
-    hold_str = None
-    hold = None
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         
         hold_str = str(f.read())
@@ -115,6 +94,7 @@ def check_if_hold_game():
         # why the fuck did this just break
         # this will fix it i hope it does
         # FUCK
+        # it was the mod
         hold = int(hold_str.strip())
         if hold == 1:
             return True
