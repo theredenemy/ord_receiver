@@ -133,6 +133,9 @@ def start_ord():
         # i changed the deltarune mod code so no need for this
         # time.sleep(150)
         time.sleep(20)
+        if check_if_hold_game():
+            while check_if_hold_game():
+                pass
         pydirectinput.press("z")
         time.sleep(2)
         pydirectinput.press("z")
