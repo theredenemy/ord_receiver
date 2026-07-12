@@ -325,6 +325,7 @@ def CBFunc():
         print("Input Chain is now off")
 @ord.input("BB")
 def BBFunc():
+    print("BB")
     time.sleep(0.1)
 @ord.eom
 def eom():
