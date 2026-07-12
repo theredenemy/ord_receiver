@@ -323,7 +323,9 @@ def CBFunc():
     else:
         ord_reader.input_chain_on = False
         print("Input Chain is now off")
-
+@ord.input("BB")
+def BBFunc():
+    time.sleep(0.1)
 @ord.eom
 def eom():
     global sprint
