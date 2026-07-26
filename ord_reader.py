@@ -1,6 +1,5 @@
 import os
 import time
-import __main__
 
 maindir = os.getcwd()
 endinput = False
