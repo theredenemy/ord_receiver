@@ -1,4 +1,4 @@
-vid2vtf==2.5.5
+vid2vtf==2.6.1
 obsws-python==1.8.0
 paramiko==5.0.0
 PyDirectInput==1.0.4
