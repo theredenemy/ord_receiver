@@ -140,7 +140,11 @@ def start_ord():
         time.sleep(2)
         pydirectinput.press("z")
         time.sleep(5)
-        time.sleep(60)
+        # if this fails check gml_Object_DEVICE_CONTACT_Step_0 In Mod Or gml_Object_DEVICE_CONTACT_Create_0 In Mod Or Check This Code
+        if check_if_hold_game():
+            while check_if_hold_game():
+                pass
+        # time.sleep(60)
         time.sleep(10)
         return
     for proc in psutil.process_iter(['name']):
