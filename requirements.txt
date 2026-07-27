@@ -4,5 +4,5 @@ paramiko==4.0.0
 PyDirectInput==1.0.4
 pywin32==312
 pywinauto==0.6.9
-requests==2.33.0
+requests==2.34.2
 psutil==7.2.1
