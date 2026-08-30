@@ -76,8 +76,6 @@ def invaild_input(state=True):
 
     cl.set_scene_item_enabled(scene_name, item_id, state)
 def check_if_game_end():
-    while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "end.txt")):
-        pass
     while True:
         try:
             with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
