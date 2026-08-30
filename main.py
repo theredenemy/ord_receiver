@@ -78,14 +78,18 @@ def invaild_input(state=True):
 def check_if_game_end():
     while fileinuse_functions.is_file_in_use(os.path.join(game_dir, "end.txt")):
         pass
-    with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
-        end_str = str(f.read())
-        end = int(end_str.strip())
+    while True:
+        try:
+            with open(os.path.join(game_dir, "end.txt"), 'r', encoding="utf-8", errors='ignore') as f:
+                end_str = str(f.read())
+                end = int(end_str.strip())
 
-        if end == 1:
-            return True
-        else:
-            return False
+                if end == 1:
+                    return True
+                else:
+                    return False
+        except ValueError:
+            pass
 def check_if_hold_game():
     with open(os.path.join(game_dir, "hold.txt"), 'r', encoding="utf-8", errors='ignore') as f:
         
