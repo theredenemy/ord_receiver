@@ -59,7 +59,7 @@ ssh_keyfile = configHelper.read_config(config_file, "sftp", "key", default_value
 ord_server_ip = configHelper.read_config(config_file, "ORD_SERVER", "ip", default_value="10.0.0.246")
 ord_server_port = configHelper.read_config(config_file, "ORD_SERVER", "port", default_value=5000, is_int=True)
 ord_key = configHelper.read_config(config_file, "ORD_SERVER", "key", default_value="PUT_KEY_HERE")
-game_dir = configHelper.read_config(config_file, "delta", "game_dir", default_value="C:\\Users\\ORD_USER\\Documents\\DELTARUNE_ORD")
+game_dir = configHelper.read_config(config_file, "delta", "game_dir", default_value="C:\\Users\\Owner\\Documents\\DELTARUNE_ORD")
 process_name = configHelper.read_config(config_file, "delta", "process_name", default_value="DELTARUNE_ORD.exe") 
 
 def invaild_input(state=True):
