@@ -23,12 +23,12 @@ def makeConfig():
 
    config_file.add_section("delta")
 
-   config_file.set("delta", "game_dir", "C:\\Users\\ORD_USER\\Documents\\DELTARUNE_ORD")
+   config_file.set("delta", "game_dir", "C:\\Users\\Owner\\Documents\\DELTARUNE_ORD")
    config_file.set("delta", "process_name", "DELTARUNE_ORD.exe")
 
    config_file.add_section("gris")
 
-   config_file.set("gris", "program_dir", "C:\\Users\\ORD_USER\\Documents\\gris_paint")
+   config_file.set("gris", "program_dir", "C:\\Users\\Owner\\Documents\\gris_paint")
    config_file.set("gris", "process_name", "gris_paint.exe")
 
 
