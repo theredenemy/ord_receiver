@@ -255,8 +255,9 @@ def eom():
             pass
         if os.path.isfile(os.path.join(program_dir, "redraw_x_y.lock")):
             os.remove(os.path.join(program_dir, "redraw_x_y.lock"))
+    time.sleep(1)
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
-        while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock")) == True):
+        while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock"))):
             pass
         if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
             os.remove(os.path.join(program_dir, "redraw.lock"))
