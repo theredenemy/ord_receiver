@@ -21,11 +21,12 @@ except requests.exceptions.ConnectionError:
 if data:
     json_data = json.loads(data.text)
     state = json_data.get('state')
+    game_end = json_data.get('game_end')
 else:
     state = 'dead'
 
 
-if not state == 'dead' and data:
+if not state == 'dead' and not game_end and data:
     view_vid = "view.mp4"
     view_dir = os.path.join(os.getcwd(), "startup_view")
     if not os.path.isdir(view_dir):
