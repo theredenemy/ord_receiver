@@ -127,6 +127,14 @@ def ord_invalid():
     invaild_input(False)
 @ord.before_input
 def before():
+    if os.path.isfile(os.path.join(program_dir, "redraw_x_y.lock")):
+        while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw_x_y.lock")) == True):
+            pass
+        if os.path.isfile(os.path.join(program_dir, "redraw_x_y.lock")):
+            os.remove(os.path.join(program_dir, "redraw_x_y.lock"))
+    if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
+        ord_reader.endinput = True
+        return False
     if process_name == win32_functions.GetForegroundWindowProcessName():
         return True
     if not win32_functions.get_pid_window(process_name):
@@ -242,6 +250,11 @@ def CBFunc():
 
 @ord.eom
 def eom():
+    if os.path.isfile(os.path.join(program_dir, "redraw_x_y.lock")):
+        while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw_x_y.lock")) == True):
+            pass
+        if os.path.isfile(os.path.join(program_dir, "redraw_x_y.lock")):
+            os.remove(os.path.join(program_dir, "redraw_x_y.lock"))
     if os.path.isfile(os.path.join(program_dir, "redraw.lock")):
         while(fileinuse_functions.is_file_in_use(os.path.join(program_dir, "redraw.lock")) == True):
             pass
