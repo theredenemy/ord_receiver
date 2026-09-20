@@ -8,3 +8,5 @@ def is_file_in_use(filename):
         return False
     except PermissionError:
         return True
+    except FileNotFoundError:
+        return False
