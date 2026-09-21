@@ -22,11 +22,12 @@ if data:
     json_data = json.loads(data.text)
     state = json_data.get('state')
     game_end = json_data.get('game_end')
+    render_inputs_thread_queue = json_data.get("render_inputs_thread_queue")
 else:
     state = 'dead'
 
 
-if not state == 'dead' and not game_end and data:
+if not state == 'dead' and not game_end and render_inputs_thread_queue == 0 and data:
     view_vid = "view.mp4"
     view_dir = os.path.join(os.getcwd(), "startup_view")
     if not os.path.isdir(view_dir):
