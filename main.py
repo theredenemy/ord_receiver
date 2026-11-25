@@ -382,8 +382,8 @@ def eom():
         os.mkdir("views")
     number = 1
     while True:
-        if os.path.isdir(f"views\\view_{number}") == False:
-            dir = f"views\\view_{number}"
+        if os.path.isdir(os.path.join("views", f"view_{number}")) == False:
+            dir = os.path.join("views", f"view_{number}")
             break
         else:
             number = number + 1
